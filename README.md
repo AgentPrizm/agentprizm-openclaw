@@ -102,9 +102,23 @@ openclaw mcp doctor         # diagnose auth/transport issues
 openclaw mcp tools          # see the memory_* tools that are exposed
 ```
 
-A healthy probe shows the AgentPrizm memory tools: `memory_bootstrap`, `memory_recall`,
-`memory_context`, `memory_create`, `memory_forget`, `memory_ingest` /
-`memory_ingest_url`, and `memory_profile`.
+A healthy probe shows **22 tools** — the 8 memory tools (`memory_bootstrap`,
+`memory_recall`, `memory_context`, `memory_create`, `memory_forget`, `memory_ingest` /
+`memory_ingest_url`, `memory_profile`) **plus 14 AgentSkills tools** (`skill_search`,
+`skill_get`, `skill_list`, `skill_install`, `skill_fork`, `skill_publish`,
+`skill_publish_public`, `skill_update`, `skill_deprecate`, `skill_unpublish`,
+`skill_marketplace_search`, `skill_marketplace_get`, `skill_report`, `skill_appeal`).
+You get AgentPrizm's full surface: durable memory **and** the reusable-skills marketplace.
+
+**Want memory only?** Scope the server to the memory tools when you add it (or update it
+later) so the agent isn't handed the skills tools it won't use:
+
+```bash
+openclaw mcp add agentprizm-memory --url https://agentprizm.com/api/mcp \
+  --transport streamable-http --header "Authorization=Bearer $AGENTPRIZM_API_KEY" \
+  --include "memory_*"
+# or on an existing server:  openclaw mcp tools agentprizm-memory --include "memory_*"
+```
 
 Other useful commands: `openclaw mcp reload`, `openclaw mcp list`,
 `openclaw mcp show agentprizm-memory`, `openclaw mcp unset agentprizm-memory`.
@@ -113,9 +127,11 @@ Other useful commands: `openclaw mcp reload`, `openclaw mcp list`,
 
 ## What's in the box (AgentPrizm memory model)
 
-- **8 core tools** — `memory_bootstrap` (one-shot context), `memory_recall` (semantic
-  search), `memory_create`, `memory_forget`, `memory_ingest` / `memory_ingest_url`,
-  `memory_context` (token-budgeted block), `memory_profile` (per-container summary).
+- **22 tools total** — 8 memory tools: `memory_bootstrap` (one-shot context),
+  `memory_recall` (semantic search), `memory_create`, `memory_forget`, `memory_ingest` /
+  `memory_ingest_url`, `memory_context` (token-budgeted block), `memory_profile`
+  (per-container summary); plus 14 `skill_*` AgentSkills tools (search, install, fork,
+  publish, marketplace, …) for the reusable-skills marketplace.
 - **6 memory types** — `fact`, `lesson`, `directive`, `preference`, `contact`,
   `bookmark`.
 - **Containers** — scope memory by user, team, customer, environment, or agent so

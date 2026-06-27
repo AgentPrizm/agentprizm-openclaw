@@ -35,6 +35,11 @@ These are the tools you have (all via the `agentprizm-memory` server):
 | `memory_ingest` / `memory_ingest_url` | Extract memories from a chunk of text or a URL (e.g. notes, a doc, a page). |
 | `memory_profile` | Get a summary of what's stored for a container. |
 
+The `agentprizm-memory` server also exposes 14 `skill_*` tools (AgentSkills marketplace:
+search, install, fork, publish, …) — 22 tools total. This skill is about **memory**; use
+the `memory_*` tools below. Reach for `skill_search` / `skill_install` only when you
+explicitly want a reusable, shareable procedure from the AgentSkills marketplace.
+
 ## When to RECALL (read before you act)
 
 Before you start real work, **check memory first**. Recall is fast and the cost of
