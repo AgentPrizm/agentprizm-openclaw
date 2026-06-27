@@ -1,0 +1,13 @@
+{
+  "mcp": {
+    "servers": {
+      "agentprizm-memory": {
+        "url": "https://agentprizm.com/api/mcp",
+        "transport": "streamable-http",
+        "headers": {
+          "Authorization": "Bearer ap_xxxxxxxxxxxxxxxxxx"
+        }
+      }
+    }
+  }
+}
