@@ -79,8 +79,11 @@ That's it. Your agent now recalls before it acts and stores what's durable.
 
 ## Manual config alternative
 
-If you'd rather set the server in one shot (e.g. to pin a literal key), use `mcp set`
-with the JSON config (see [`mcp/openclaw.json`](./mcp/openclaw.json)):
+If you'd rather set the server in one shot (e.g. to pin a literal key), use `mcp set`.
+Note: `mcp set` takes only the **bare per-server object** `{url,transport,headers}` — not
+a wrapped config. ([`mcp/openclaw.json`](./mcp/openclaw.json) shows the same server in the
+`mcp.servers.<name>` shape it lands as in `~/.openclaw/openclaw.json`; copy only the inner
+object into `mcp set`.)
 
 ```bash
 openclaw mcp set agentprizm-memory '{"url":"https://agentprizm.com/api/mcp","transport":"streamable-http","headers":{"Authorization":"Bearer ap_xxxxxxxxxxxxxxxxxx"}}'
@@ -103,8 +106,8 @@ A healthy probe shows the AgentPrizm memory tools: `memory_bootstrap`, `memory_r
 `memory_context`, `memory_create`, `memory_forget`, `memory_ingest` /
 `memory_ingest_url`, and `memory_profile`.
 
-Other useful commands: `openclaw mcp reload`, `mcp list`, `mcp show agentprizm-memory`,
-`mcp unset agentprizm-memory`.
+Other useful commands: `openclaw mcp reload`, `openclaw mcp list`,
+`openclaw mcp show agentprizm-memory`, `openclaw mcp unset agentprizm-memory`.
 
 ---
 
