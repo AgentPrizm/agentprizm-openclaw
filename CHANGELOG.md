@@ -3,6 +3,13 @@
 All notable changes to this skill are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## 1.1.0 — Recall receipts & confidence
+
+- **`SKILL.md`** — recall now surfaces a per-memory `confidence` (0–1) and a `why` block
+  (including `validityState`); the skill instructs the agent to lean on high-confidence,
+  `active` memories and verify the rest. Documents that expired facts are excluded from
+  recall by default, with `includeExpired: true` to review them. No config changes.
+
 ## 1.0.0 — Initial release
 
 - **`SKILL.md`** — agent instructions teaching when to recall (before starting a task,

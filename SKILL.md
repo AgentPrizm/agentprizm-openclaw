@@ -1,7 +1,7 @@
 ---
 name: agentprizm-memory
 description: Give your OpenClaw agent persistent, cross-session memory via AgentPrizm — recall durable facts, decisions, preferences, lessons, and contacts before acting, and store new ones as you learn them.
-version: 1.0.0
+version: 1.1.0
 metadata:
   openclaw:
     primaryEnv: AGENTPRIZM_API_KEY
@@ -54,9 +54,12 @@ the user). Recall when:
   decisions, gotchas, and lessons for this container.
 - **Before contacting or referencing a person** → recall their `contact` memory.
 
-Every recall returns a **receipt** — treat it as your evidence. When you act on a
-recalled memory, ground your reasoning in it rather than guessing. If recall returns
-nothing relevant, say so and proceed; don't fabricate prior context.
+Every recall returns a **receipt** — treat it as your evidence. Each memory carries a
+`confidence` (0–1) and a `why` block (including `validityState`) showing how strongly
+and why it matched; lean harder on high-confidence, `active` memories and verify the
+rest. When you act on a recalled memory, ground your reasoning in it rather than
+guessing. If recall returns nothing relevant, say so and proceed; don't fabricate prior
+context.
 
 ## When to STORE (write what's durable)
 
@@ -108,6 +111,10 @@ For anything that's only true for a while, set a validity window when you create
 migration". This lets the fact expire instead of misleading a future session. Add a
 `confidence` when you're unsure. When something is flat-out wrong or superseded, prefer
 `memory_forget` over leaving stale data.
+
+Expired facts are excluded from recall by default, so a stale window won't leak into a
+future session. If your job is specifically to review or refresh stale facts, recall
+with `includeExpired: true` and check each result's `why.validityState`.
 
 ## Never store secrets
 
