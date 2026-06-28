@@ -3,6 +3,16 @@
 All notable changes to this skill are documented here. This project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## 1.2.0 — Memory-only by default (least privilege)
+
+- **Default tool surface is now memory-only.** The recommended install scopes the MCP
+  server with `--include "memory_*"` (8 memory tools), and `mcp/openclaw.json` carries the
+  matching `toolFilter.include`. The 14 `skill_*` AgentSkills-marketplace tools are now an
+  explicit opt-in (wire the server without the `--include` filter) rather than exposed by
+  default — addresses a ClawHub scan note that a *memory* skill shouldn't hand the agent
+  marketplace powers it doesn't need. No change to AgentPrizm or the memory tools
+  themselves; this only narrows the recommended default.
+
 ## 1.1.0 — Recall receipts & confidence
 
 - **`SKILL.md`** — recall now surfaces a per-memory `confidence` (0–1) and a `why` block

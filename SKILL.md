@@ -1,7 +1,7 @@
 ---
 name: agentprizm-memory
 description: Give your OpenClaw agent persistent, cross-session memory via AgentPrizm — recall durable facts, decisions, preferences, lessons, and contacts before acting, and store new ones as you learn them.
-version: 1.1.0
+version: 1.2.0
 metadata:
   openclaw:
     primaryEnv: AGENTPRIZM_API_KEY
@@ -35,10 +35,12 @@ These are the tools you have (all via the `agentprizm-memory` server):
 | `memory_ingest` / `memory_ingest_url` | Extract memories from a chunk of text or a URL (e.g. notes, a doc, a page). |
 | `memory_profile` | Get a summary of what's stored for a container. |
 
-The `agentprizm-memory` server also exposes 14 `skill_*` tools (AgentSkills marketplace:
-search, install, fork, publish, …) — 22 tools total. This skill is about **memory**; use
-the `memory_*` tools below. Reach for `skill_search` / `skill_install` only when you
-explicitly want a reusable, shareable procedure from the AgentSkills marketplace.
+**Least privilege by default.** The recommended install scopes this server to the 8
+`memory_*` tools only (`--include "memory_*"`), which is all a memory skill needs. The
+AgentPrizm server *can* also serve 14 `skill_*` AgentSkills-marketplace tools (search,
+install, fork, publish, …), but those are an **explicit opt-in** — wire the server
+without the `--include` filter only when you actually want the full AgentPrizm surface,
+not just memory. Keep the default unless you specifically need marketplace access.
 
 ## When to RECALL (read before you act)
 

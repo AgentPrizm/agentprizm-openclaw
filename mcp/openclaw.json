@@ -6,6 +6,9 @@
         "transport": "streamable-http",
         "headers": {
           "Authorization": "Bearer ap_xxxxxxxxxxxxxxxxxx"
+        },
+        "toolFilter": {
+          "include": ["memory_*"]
         }
       }
     }

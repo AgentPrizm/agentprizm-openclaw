@@ -52,13 +52,15 @@ See [`.env.example`](./.env.example) for the full list of variables.
 ## 60-second install
 
 **1. Add the remote MCP server.** This probes AgentPrizm before saving, so a success
-means your key works:
+means your key works. `--include "memory_*"` scopes it to the 8 memory tools
+(least-privilege default — all a memory skill needs):
 
 ```bash
 openclaw mcp add agentprizm-memory \
   --url https://agentprizm.com/api/mcp \
   --transport streamable-http \
-  --header "Authorization=Bearer $AGENTPRIZM_API_KEY"
+  --header "Authorization=Bearer $AGENTPRIZM_API_KEY" \
+  --include "memory_*"
 ```
 
 **2. Install the skill** from this repo (git ref):
@@ -102,22 +104,20 @@ openclaw mcp doctor         # diagnose auth/transport issues
 openclaw mcp tools          # see the memory_* tools that are exposed
 ```
 
-A healthy probe shows **22 tools** — the 8 memory tools (`memory_bootstrap`,
-`memory_recall`, `memory_context`, `memory_create`, `memory_forget`, `memory_ingest` /
-`memory_ingest_url`, `memory_profile`) **plus 14 AgentSkills tools** (`skill_search`,
-`skill_get`, `skill_list`, `skill_install`, `skill_fork`, `skill_publish`,
-`skill_publish_public`, `skill_update`, `skill_deprecate`, `skill_unpublish`,
-`skill_marketplace_search`, `skill_marketplace_get`, `skill_report`, `skill_appeal`).
-You get AgentPrizm's full surface: durable memory **and** the reusable-skills marketplace.
+With the recommended memory-only setup, a healthy probe shows the **8 memory tools**:
+`memory_bootstrap`, `memory_recall`, `memory_context`, `memory_create`, `memory_forget`,
+`memory_ingest` / `memory_ingest_url`, `memory_profile`.
 
-**Want memory only?** Scope the server to the memory tools when you add it (or update it
-later) so the agent isn't handed the skills tools it won't use:
+**Want the full AgentPrizm surface (memory + skills marketplace)?** AgentPrizm also serves
+14 `skill_*` AgentSkills tools (`skill_search`, `skill_get`, `skill_list`, `skill_install`,
+`skill_fork`, `skill_publish`, `skill_publish_public`, `skill_update`, `skill_deprecate`,
+`skill_unpublish`, `skill_marketplace_search`, `skill_marketplace_get`, `skill_report`,
+`skill_appeal`) — 22 tools in all. Opt in by adding the server **without** the `--include`
+filter (or widen an existing one with `openclaw mcp tools agentprizm-memory --include "*"`):
 
 ```bash
 openclaw mcp add agentprizm-memory --url https://agentprizm.com/api/mcp \
-  --transport streamable-http --header "Authorization=Bearer $AGENTPRIZM_API_KEY" \
-  --include "memory_*"
-# or on an existing server:  openclaw mcp tools agentprizm-memory --include "memory_*"
+  --transport streamable-http --header "Authorization=Bearer $AGENTPRIZM_API_KEY"
 ```
 
 Other useful commands: `openclaw mcp reload`, `openclaw mcp list`,
@@ -127,11 +127,12 @@ Other useful commands: `openclaw mcp reload`, `openclaw mcp list`,
 
 ## What's in the box (AgentPrizm memory model)
 
-- **22 tools total** — 8 memory tools: `memory_bootstrap` (one-shot context),
+- **8 memory tools (default)** — `memory_bootstrap` (one-shot context),
   `memory_recall` (semantic search), `memory_create`, `memory_forget`, `memory_ingest` /
   `memory_ingest_url`, `memory_context` (token-budgeted block), `memory_profile`
-  (per-container summary); plus 14 `skill_*` AgentSkills tools (search, install, fork,
-  publish, marketplace, …) for the reusable-skills marketplace.
+  (per-container summary). The server can also serve 14 `skill_*` AgentSkills tools
+  (search, install, fork, publish, marketplace, …) — 22 in all — as an **opt-in**
+  (omit `--include "memory_*"`); the recommended setup stays memory-only.
 - **6 memory types** — `fact`, `lesson`, `directive`, `preference`, `contact`,
   `bookmark`.
 - **Containers** — scope memory by user, team, customer, environment, or agent so
