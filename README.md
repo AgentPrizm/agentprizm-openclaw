@@ -23,7 +23,7 @@ OpenClaw MCP server config. AgentPrizm already ships the remote server
 This skill is **bring-your-own-account**: each user supplies their own AgentPrizm key.
 Your memories are yours, scoped to your account.
 
-1. Sign up free at **[agentprizm.com](https://agentprizm.com)**.
+1. Sign up free at **[agentprizm.com](https://agentprizm.com/signup?utm_source=clawhub&utm_medium=skill)**.
 2. Create an API key (keys are prefixed `ap_`).
 3. Set it in your environment:
 
